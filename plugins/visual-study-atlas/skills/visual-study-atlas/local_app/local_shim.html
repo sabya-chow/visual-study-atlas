@@ -1,0 +1,29 @@
+<script>
+/* Local shim: gives the page the same sample() API, backed by the local Ollama server (/ask). */
+(function(){
+  async function sample(input, opts){
+    opts = opts || {};
+    var msgs = typeof input === 'string' ? [{role:'user',content:input}] : input;
+    var res;
+    try { res = await fetch('/ask', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: msgs, tier: opts.modelTier || 'default'}), signal: opts.signal}); }
+    catch(e){ if (opts.signal && opts.signal.aborted) throw {code:'cancelled', message:'stopped'}; throw {code:'upstream_error', message:'local server not reachable'}; }
+    if (!res.ok) { var t=''; try{t=await res.text();}catch(e){} throw {code:'upstream_error', message: t || ('server error ' + res.status)}; }
+    var reader = res.body.getReader(), dec = new TextDecoder(), text = '';
+    try {
+      for (;;) {
+        var r = await reader.read(); if (r.done) break;
+        var d = dec.decode(r.value, {stream:true}); if (!d) continue;
+        text += d; if (opts.onText) opts.onText({text: text, delta: d});
+      }
+    } catch (e) {
+      if (opts.signal && opts.signal.aborted) throw {code:'cancelled', message:'stopped', text: text};
+      throw {code:'upstream_error', message:'connection interrupted', text: text};
+    }
+    if (text.indexOf('\u0000ERROR:') >= 0) { var m = text.split('\u0000ERROR:'); throw {code:'upstream_error', message: m[1].trim(), text: m[0]}; }
+    if (!text.trim()) throw {code:'empty_completion', message:'no text'};
+    return {text: text, truncated:false, modelTierApplied: opts.modelTier || 'default'};
+  }
+  sample.limits = async function(){ return {maxPromptBytes:262144}; };
+  window.claude = { use: async function(n){ return n === 'sample' ? sample : null; } };
+})();
+</script>

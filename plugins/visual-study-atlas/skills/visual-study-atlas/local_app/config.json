@@ -1,0 +1,12 @@
+{
+  "port": 8765,
+  "ollama": "http://127.0.0.1:11434",
+  "embed_model": "nomic-embed-text",
+  "models": {
+    "quick":   {"name": "qwen3.5:9b",   "think": false},
+    "default": {"name": "gpt-oss:20b",  "think": "low"},
+    "complex": {"name": "gpt-oss:20b",  "think": "high"}
+  },
+  "retrieval": {"top_k": 5, "chunk_chars": 1000, "use_book": true},
+  "options": {"temperature": 0.3, "num_ctx": 8192}
+}

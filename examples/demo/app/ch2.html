@@ -1,0 +1,333 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><title>Budgeting Atlas: Chapter 2</title><style>
+:root{
+  /* layout: a long-scroll study guide; each section = one claim, one diagram, two lenses (set LENS_TITLES; pass empty lists to omit) */
+  --bg:#f2f5f8; --surface:#ffffff; --fg:#12202c; --muted:#4d6176; --line:#c3cfda;
+  --ctl:#0b7a75; --ctl-bg:#dcf2ef; --thr:#b8321b; --thr-bg:#fbe5df;
+  --dat:#9a5b00; --dat-bg:#fcefd0; --net:#2457b8; --net-bg:#e1ebfb; --zone:#eaf0f5;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --disp:'Archivo',var(--sans);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d151c; --surface:#16212b; --fg:#e5edf4; --muted:#9bacbd; --line:#2e4152;
+  --ctl:#4fd1c5; --ctl-bg:#0e2e2c; --thr:#ff8f78; --thr-bg:#3a1b15;
+  --dat:#f2b24c; --dat-bg:#33260b; --net:#86adff; --net-bg:#13233f; --zone:#111c26; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d151c; --surface:#16212b; --fg:#e5edf4; --muted:#9bacbd; --line:#2e4152;
+  --ctl:#4fd1c5; --ctl-bg:#0e2e2c; --thr:#ff8f78; --thr-bg:#3a1b15;
+  --dat:#f2b24c; --dat-bg:#33260b; --net:#86adff; --net-bg:#13233f; --zone:#111c26; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;
+  padding-block:0 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1000px;margin:0 auto}
+header{padding:48px 0 24px;border-bottom:2px solid var(--fg)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.02;margin:10px 0 14px;letter-spacing:-.02em;text-wrap:balance}
+.lead{font-size:18px;max-width:62ch;color:var(--fg)}
+.keys{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px;font-size:13px}
+.keys span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:16px;height:16px;border-radius:4px;border:1.5px solid}
+.sw.ctl{background:var(--ctl-bg);border-color:var(--ctl)}.sw.thr{background:var(--thr-bg);border-color:var(--thr)}
+.sw.dat{background:var(--dat-bg);border-color:var(--dat)}.sw.net{background:var(--net-bg);border-color:var(--net)}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+nav.jump a{font-family:var(--mono);font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;color:var(--fg);text-decoration:none;background:var(--surface)}
+nav.jump a:hover,nav.jump a:focus-visible{border-color:var(--ctl);outline:none;color:var(--ctl)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line)}
+h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.6vw,34px);letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+.sec-n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+p.claim{font-size:17px;max-width:68ch;margin:6px 0 18px}
+.fig{margin:0 0 20px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px}
+.scroll svg{display:block;width:100%;min-width:640px;height:auto}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px;max-width:76ch}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:12px}
+.trio .scroll svg{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.card h3{font-size:15px;margin:0 0 6px;font-family:var(--disp);font-weight:700}
+.card ul{margin:6px 0 0;padding-left:18px;font-size:14.5px}
+.card li{margin:3px 0}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lenses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:8px 0 28px}
+.lens{border-radius:10px;padding:14px 16px;border:1px solid;min-width:0}
+.lens.c{background:var(--net-bg);border-color:var(--net)}
+.lens.i{background:var(--ctl-bg);border-color:var(--ctl)}
+.lens h3{margin:0 0 6px;font-size:13px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.lens.c h3{color:var(--net)}.lens.i h3{color:var(--ctl)}
+.lens ul{margin:0;padding-left:18px;font-size:14.5px}.lens li{margin:4px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;background:var(--zone)}
+.tw{overflow-x:auto;border-radius:10px}
+.pill{font-family:var(--mono);font-size:11.5px;padding:2px 7px;border-radius:5px;background:var(--net-bg);color:var(--net);border:1px solid var(--net);white-space:nowrap}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0}
+summary{cursor:pointer;font-weight:600}
+summary:focus-visible{outline:2px solid var(--ctl);outline-offset:3px}
+details p{margin:8px 0 0;color:var(--muted)}
+.note{font-size:14px;color:var(--muted);max-width:76ch;border-left:3px solid var(--dat);padding-left:12px;margin:18px 0}
+footer{padding-top:28px;font-size:13px;color:var(--muted)}
+/* svg parts */
+svg text{font-family:var(--sans);font-size:12px;fill:var(--fg)}
+svg .tt{font-weight:700;font-size:12.5px}svg .sm{font-size:11px;fill:var(--fg)}
+svg .smr{font-size:11px;fill:var(--thr);font-weight:600}svg .smw{font-size:11px;fill:var(--surface);font-weight:700}
+svg .lab{font-family:var(--mono);font-size:10px;letter-spacing:.06em;fill:var(--muted)}
+svg .lgt,svg .numt{font-size:9px;font-weight:700;fill:var(--surface)}
+svg .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+svg .bx.ctl{fill:var(--ctl-bg);stroke:var(--ctl)}svg .bx.thr{fill:var(--thr-bg);stroke:var(--thr)}
+svg .bx.dat{fill:var(--dat-bg);stroke:var(--dat)}svg .bx.net{fill:var(--net-bg);stroke:var(--net)}
+svg .dashed{stroke-dasharray:5 4}
+svg .zone{fill:var(--zone);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:6 4}
+svg .ar{fill:none;stroke:var(--muted);stroke-width:1.7}svg .ar.ctl{stroke:var(--ctl)}svg .ar.thr{stroke:var(--thr)}svg .ar.dat{stroke:var(--dat)}
+svg .ar.dashed{stroke-dasharray:4 4}
+svg .mk{fill:var(--muted)}svg .mkr{fill:var(--thr)}svg .mkc{fill:var(--ctl)}svg .mkd{fill:var(--dat)}
+svg .lg{fill:var(--net)}svg .num{fill:var(--fg)}svg .thrfill{fill:var(--thr)}
+svg .gate{fill:var(--ctl);stroke:var(--surface);stroke-width:1.5}
+@media (max-width:760px){.trio,.lenses{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){nav.jump a{transition:border-color .15s,color .15s}}
+.pager{display:flex;gap:14px;margin-top:14px;font-family:var(--mono);font-size:12px}.pager a{color:var(--ctl)}svg .grid{stroke:var(--line);stroke-width:1}svg .bar.thrb{fill:var(--thr-bg);stroke:var(--thr);stroke-width:1.5}svg .bar.datb{fill:var(--dat-bg);stroke:var(--dat);stroke-width:1.5}svg .chip{fill:var(--surface);stroke:var(--line);stroke-width:1.5}svg .chip.on{fill:var(--ctl-bg);stroke:var(--ctl)}svg .chipt{font-weight:700;font-size:11px;fill:var(--muted)}svg .chipt.on{fill:var(--ctl)}svg .big{font-size:26px;font-weight:800;fill:var(--thr)}.cov{margin:14px 0}.cov summary{color:var(--ctl)}.covl{columns:2;column-gap:28px;font-size:14px;margin:8px 0 0;padding-left:18px}.covl li{margin:3px 0;break-inside:avoid}.beyond{border-left-color:var(--net)}@media(max-width:760px){.covl{columns:1}}.quiz{margin:12px 0}.qhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:10px}.qscore{font-family:var(--mono);font-size:13px;color:var(--ctl)}.qhead button{font:12px var(--mono);padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);cursor:pointer}.qq{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0}.qt{margin:0 0 8px}.qo{list-style:none;margin:0;padding:0;display:grid;gap:6px}.qopt{width:100%;text-align:left;font:inherit;font-size:14.5px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);cursor:pointer}.qopt:hover:not(:disabled),.qopt:focus-visible{border-color:var(--ctl);outline:none}.qopt:disabled{cursor:default}.qopt.ok{background:var(--ctl-bg);border-color:var(--ctl)}.qopt.bad{background:var(--thr-bg);border-color:var(--thr)}.ql{font-family:var(--mono);font-weight:700;margin-right:6px}.qx{margin-top:8px;font-size:14px;border-left:3px solid var(--line);padding-left:10px;color:var(--muted)}.qx.good{border-color:var(--ctl)}.qx.miss{border-color:var(--thr)}.stepbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0}.stepbar button{font:12px var(--mono);padding:4px 10px;border:1px solid var(--ctl);border-radius:6px;background:var(--surface);color:var(--fg);cursor:pointer}.stepbar .scap{font-size:14px;color:var(--muted);flex:1;min-width:200px}[data-step]{transition:opacity .25s}.stepping [data-step].dim{opacity:.1}.stepping [data-step].cur rect{stroke-width:3.5}.stepping [data-step].cur path{stroke-width:3}@media (prefers-reduced-motion:reduce){[data-step]{transition:none}}.chaps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.chap{display:flex;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);text-decoration:none}.cn{font:800 28px var(--disp);color:var(--ctl)}.ct{display:flex;flex-direction:column;gap:4px}.ct span{font-size:14px;color:var(--muted)}@media(max-width:760px){.chaps{grid-template-columns:1fr}}
+.asktip{max-width:68ch;padding:10px 14px;border:1px solid var(--ctl);border-radius:10px;background:var(--ctl-bg);font-size:14.5px;margin:0 0 16px}
+.ask-hov{outline:2px dashed var(--ctl);outline-offset:2px;cursor:help}
+svg .ask-hov{outline:none;stroke:var(--ctl)!important;stroke-width:3}
+svg text.ask-hov{fill:var(--ctl)!important;stroke:none!important}
+#asktoggle{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:40;font:500 12px var(--mono);padding:8px 12px;border-radius:999px;border:1px solid var(--ctl);background:var(--surface);color:var(--fg);cursor:pointer}
+#askpanel{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));width:min(430px,calc(100vw - 24px));max-height:min(62vh,520px);z-index:50;display:flex;flex-direction:column;background:var(--surface);color:var(--fg);border:1px solid var(--ctl);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+#askpanel[hidden]{display:none}
+.ah{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--line)}
+.aq{flex:1;font-size:12.5px;color:var(--muted);border-left:3px solid var(--ctl);padding-left:8px;min-width:0;overflow-wrap:anywhere}
+.ax{border:0;background:none;color:var(--fg);font-size:20px;line-height:1;cursor:pointer;padding:0 4px}
+.alog{padding:10px 12px;overflow:auto;display:flex;flex-direction:column;gap:8px;min-height:0}
+.am{font-size:14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.am.q{align-self:flex-end;background:var(--net-bg);border:1px solid var(--net);border-radius:10px;padding:6px 10px;max-width:90%}
+.am.a.err{color:var(--thr)}
+.achips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px}
+.achips button{font:12px var(--sans);padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--zone);color:var(--fg);cursor:pointer}
+.achips button:hover,.achips button:focus-visible{border-color:var(--ctl);outline:none}
+.af{display:flex;gap:6px;padding:10px 12px}
+.af input{flex:1;min-width:0;font:14px var(--sans);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.af input:focus{outline:2px solid var(--ctl);outline-offset:1px}
+.af button{font:600 13px var(--sans);padding:8px 12px;border-radius:8px;border:1px solid var(--ctl);background:var(--ctl);color:var(--surface);cursor:pointer}
+.af .astop{background:var(--surface);color:var(--fg)}
+@media (max-width:760px){#askpanel{left:8px;right:8px;width:auto;bottom:8px}#asktoggle{bottom:auto;top:8px;left:8px}}
+.refs{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:0 0 14px;font-size:13.5px}.refs .rk{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.refs a{color:var(--ctl);text-decoration:none;border-bottom:1px solid var(--line)}.refs a:hover,.refs a:focus-visible{border-bottom-color:var(--ctl);outline:none}.refs .rs{color:var(--muted)}.refs .rc{display:flex;flex-wrap:wrap;gap:4px 10px}.refs.vid a{border-bottom:0;padding:2px 8px;border:1px solid var(--line);border-radius:999px}</style></head><body><script>
+/* Local shim: gives the page the same sample() API, backed by the local Ollama server (/ask). */
+(function(){
+  async function sample(input, opts){
+    opts = opts || {};
+    var msgs = typeof input === 'string' ? [{role:'user',content:input}] : input;
+    var res;
+    try { res = await fetch('/ask', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: msgs, tier: opts.modelTier || 'default'}), signal: opts.signal}); }
+    catch(e){ if (opts.signal && opts.signal.aborted) throw {code:'cancelled', message:'stopped'}; throw {code:'upstream_error', message:'local server not reachable'}; }
+    if (!res.ok) { var t=''; try{t=await res.text();}catch(e){} throw {code:'upstream_error', message: t || ('server error ' + res.status)}; }
+    var reader = res.body.getReader(), dec = new TextDecoder(), text = '';
+    try {
+      for (;;) {
+        var r = await reader.read(); if (r.done) break;
+        var d = dec.decode(r.value, {stream:true}); if (!d) continue;
+        text += d; if (opts.onText) opts.onText({text: text, delta: d});
+      }
+    } catch (e) {
+      if (opts.signal && opts.signal.aborted) throw {code:'cancelled', message:'stopped', text: text};
+      throw {code:'upstream_error', message:'connection interrupted', text: text};
+    }
+    if (text.indexOf('\u0000ERROR:') >= 0) { var m = text.split('\u0000ERROR:'); throw {code:'upstream_error', message: m[1].trim(), text: m[0]}; }
+    if (!text.trim()) throw {code:'empty_completion', message:'no text'};
+    return {text: text, truncated:false, modelTierApplied: opts.modelTier || 'default'};
+  }
+  sample.limits = async function(){ return {maxPromptBytes:262144}; };
+  window.claude = { use: async function(n){ return n === 'sample' ? sample : null; } };
+})();
+</script><div class="view" id="v-ch2"><header><div class="wrap"><div class="eyebrow">A Short Guide to Home Budgeting &middot; Chapter 2</div><h1>Safety nets</h1><p class="lead">Emergency fund, debt basics and insurance.</p><div class="keys"><span><i class="sw ctl"></i>control / defense</span><span><i class="sw thr"></i>threat / weak point</span><span><i class="sw dat"></i>asset / sensitive item</span><span><i class="sw net"></i>flow / infrastructure</span></div><nav class="jump" aria-label="Sections"><a href="index.html">All chapters</a><a href="ch1.html">&larr; Ch 1</a></nav><nav class="jump" aria-label="On this page"><a href="#ch2-s1">1 The emergency fund</a><a href="#ch2-s2">2 Debt basics</a><a href="#ch2-s3">3 Insurance and risk transfer</a><a href="#ch2-s4">4 Quiz and self-check</a></nav></div></header><div class="wrap"><section id="ch2-s1"><div class="sec-n">SECTION 1</div><h2>The emergency fund</h2><p class="claim">A cash reserve of three to six months of essential costs, kept separate and reachable.</p><div class="refs"><span class="rk">Textbook</span> <a href="textbook.pdf#page=3" target="_blank" rel="noopener">open at p.3</a></div><figure class="fig"><div class="scroll"><svg viewBox="0 0 960 280" role="img" aria-label="Emergency fund target drawn to scale for essential costs of 2,000 a month: one month 2,000, three months 6,000, six months 12,000." xmlns="http://www.w3.org/2000/svg"><defs><marker id="ch2_a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_r4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkr" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_c4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkc" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_d4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkd" d="M0,0 L10,5 L0,10z"/></marker></defs><text x="30" y="56" text-anchor="start" class="sm">Start: 1 month</text><rect x="260" y="30" width="103.33333333333333" height="40" rx="6" class="bar datb"/><text x="373.3333333333333" y="56" text-anchor="start" class="tt">2,000</text><text x="30" y="126" text-anchor="start" class="sm">Typical low: 3 months</text><rect x="260" y="100" width="310.0" height="40" rx="6" class="bar datb"/><text x="580.0" y="126" text-anchor="start" class="tt">6,000</text><text x="30" y="196" text-anchor="start" class="sm">Typical high: 6 months</text><rect x="260" y="170" width="620.0" height="40" rx="6" class="bar thrb"/><text x="890.0" y="196" text-anchor="start" class="tt">12,000</text><text x="480" y="250" text-anchor="middle" class="sm">Keep it in a separate, reachable account; refill after use.</text></svg></div><figcaption>Bars are to scale. Starting with one month beats waiting until you can save the full amount.</figcaption></figure><div class="tw"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><b>Emergency fund</b></td><td>Cash reserve for surprises such as job loss or a medical bill; not for planned purchases.</td></tr><tr><td><b>Target</b></td><td>Three to six months of essential costs; start with one month.</td></tr></tbody></table></div><details class="cov"><summary>Coverage checklist: what the source says here (4 items)</summary><ul class="covl"><li>Purpose</li><li>Target size and a worked example</li><li>Separate, reachable account</li><li>Refill after use</li></ul></details></section><section id="ch2-s2"><div class="sec-n">SECTION 2</div><h2>Debt basics</h2><p class="claim">Interest is the price of borrowing; compounding makes unpaid balances grow faster.</p><div class="refs"><span class="rk">Textbook</span> <a href="textbook.pdf#page=3" target="_blank" rel="noopener">open at p.3</a></div><figure class="fig"><div class="scroll"><svg viewBox="0 0 960 300" role="img" aria-label="Compound interest on an unpaid balance of 1,000 at 2 percent a month, drawn to scale for six months." xmlns="http://www.w3.org/2000/svg"><defs><marker id="ch2_a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_r5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkr" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_c5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkc" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_d5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkd" d="M0,0 L10,5 L0,10z"/></marker></defs><text x="40" y="40" text-anchor="end" class="sm">M0</text><rect x="60" y="20" width="708.0" height="26" rx="4" class="bar datb"/><text x="775.9646017699115" y="39" text-anchor="start" class="sm">1,000.00</text><text x="40" y="78" text-anchor="end" class="sm">M1</text><rect x="60" y="58" width="722.1" height="26" rx="4" class="bar datb"/><text x="790.1238938053096" y="77" text-anchor="start" class="sm">1,020.00</text><text x="40" y="116" text-anchor="end" class="sm">M2</text><rect x="60" y="96" width="736.6" height="26" rx="4" class="bar datb"/><text x="804.566371681416" y="115" text-anchor="start" class="sm">1,040.40</text><text x="40" y="154" text-anchor="end" class="sm">M3</text><rect x="60" y="134" width="751.3" height="26" rx="4" class="bar datb"/><text x="819.2976991150442" y="153" text-anchor="start" class="sm">1,061.21</text><text x="40" y="192" text-anchor="end" class="sm">M4</text><rect x="60" y="172" width="766.3" height="26" rx="4" class="bar datb"/><text x="834.3236530973452" y="191" text-anchor="start" class="sm">1,082.43</text><text x="40" y="230" text-anchor="end" class="sm">M5</text><rect x="60" y="210" width="781.7" height="26" rx="4" class="bar datb"/><text x="849.6501261592921" y="229" text-anchor="start" class="sm">1,104.08</text><text x="40" y="268" text-anchor="end" class="sm">M6</text><rect x="60" y="248" width="797.3" height="26" rx="4" class="bar datb"/><text x="865.2831286824778" y="267" text-anchor="start" class="sm">1,126.16</text></svg></div><figcaption>Each month interest is charged on the larger balance, so the bars grow faster over time. Values computed, not decorative.</figcaption></figure><div class="tw"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><b>Compound interest</b></td><td>Unpaid interest is added to the balance, so the next charge is on a larger amount.</td></tr><tr><td><b>Avalanche</b></td><td>Pay the highest interest rate first; saves the most interest.</td></tr><tr><td><b>Snowball</b></td><td>Pay the smallest balance first; quick wins.</td></tr></tbody></table></div><div class="note beyond"><b>Beyond the book &ndash; verify:</b> Real loans may compound daily or have fees; check your loan terms.</div><details class="cov"><summary>Coverage checklist: what the source says here (4 items)</summary><ul class="covl"><li>Interest = price of borrowing</li><li>Compounding with 1,000 at 2 percent example</li><li>Avalanche vs snowball</li><li>Choose one and keep to it</li></ul></details></section><section id="ch2-s3"><div class="sec-n">SECTION 3</div><h2>Insurance and risk transfer</h2><p class="claim">Insurance moves a rare, large cost to a company for a small regular premium.</p><div class="refs"><span class="rk">Textbook</span> <a href="textbook.pdf#page=3" target="_blank" rel="noopener">open at p.3</a></div><figure class="fig stepfig"><div class="scroll"><svg viewBox="0 0 960 280" role="img" aria-label="Insurance as risk transfer: you pay a small regular premium; for a large rare loss you pay the deductible and the insurer pays the rest." xmlns="http://www.w3.org/2000/svg"><defs><marker id="ch2_a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_r6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkr" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_c6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkc" d="M0,0 L10,5 L0,10z"/></marker><marker id="ch2_d6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkd" d="M0,0 L10,5 L0,10z"/></marker></defs><g data-step="1"><rect x="30" y="100" width="200" height="80" rx="8" class="bx dat"/><text x="130.0" y="136.5" text-anchor="middle" class="tt">You</text><text x="130.0" y="151.5" text-anchor="middle" class="sm">pay the premium monthly</text></g><g data-step="1"><path d="M230 140 L380 140" class="ar " marker-end="url(#ch2_a6)"/></g><g data-step="1"><rect x="380" y="100" width="200" height="80" rx="8" class="bx net"/><text x="480.0" y="136.5" text-anchor="middle" class="tt">Insurer</text><text x="480.0" y="151.5" text-anchor="middle" class="sm">pools many small premiums</text></g><g data-step="2"><rect x="380" y="10" width="200" height="60" rx="8" class="bx thr"/><text x="480.0" y="36.5" text-anchor="middle" class="tt">Rare large loss</text><text x="480.0" y="51.5" text-anchor="middle" class="sm">fire, illness, liability</text></g><g data-step="2"><path d="M480 70 L480 100" class="ar thr" marker-end="url(#ch2_r6)"/></g><g data-step="3"><path d="M580 140 L730 140" class="ar ctl" marker-end="url(#ch2_c6)"/></g><g data-step="3"><rect x="730" y="100" width="200" height="80" rx="8" class="bx ctl"/><text x="830.0" y="136.5" text-anchor="middle" class="tt">Pays above deductible</text><text x="830.0" y="151.5" text-anchor="middle" class="sm">you pay the first part</text></g><g data-step="4"><rect x="30" y="210" width="900" height="50" rx="8" class="bx bx"/><text x="480.0" y="231.5" text-anchor="middle" class="tt">Emergency fund + insurance</text><text x="480.0" y="246.5" text-anchor="middle" class="sm">the fund covers deductibles and small events; insurance covers the large ones</text></g></svg></div><div class="stepbar" data-n="4" data-caps="[&quot;You pay a regular, small premium.&quot;, &quot;A rare, large loss happens.&quot;, &quot;The insurer pays above your deductible.&quot;, &quot;The emergency fund covers the deductible and small events.&quot;]"><button type="button" class="sgo">Step through</button><button type="button" class="sprev" hidden>&larr; Back</button><button type="button" class="snext" hidden>Next &rarr;</button><button type="button" class="sall" hidden>Show all</button><span class="scap"></span></div><figcaption>Insure what would be a disaster; skip cover for mere inconveniences.</figcaption></figure><div class="tw"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><b>Premium</b></td><td>The regular payment to the insurer.</td></tr><tr><td><b>Deductible</b></td><td>The amount you pay first before the insurer pays.</td></tr></tbody></table></div><details class="cov"><summary>Coverage checklist: what the source says here (3 items)</summary><ul class="covl"><li>Premium and deductible</li><li>Insure disasters, skip inconveniences</li><li>Fund and insurance work together</li></ul></details></section><section id="ch2-s4"><div class="sec-n">SECTION 4</div><h2>Quiz and self-check</h2><p class="claim">Scenario questions, scored. Pick the BEST answer.</p><div class="quiz" data-qid="ch2-quiz"><div class="qhead"><b>Chapter 2 quiz</b><span class="qscore">Score 0 / 3</span><button type="button" class="qretry" hidden>Retry missed</button><button type="button" class="qreset">Reset</button></div><div class="qq" data-ans="2"><p class="qt"><b>1.</b> Dev spends 1,800 a month on essentials and has 2,000 saved. He can afford a deposit for a new gadget (500). What is the BEST move?</p><ul class="qo"><li><button type="button" class="qopt" data-i="0"><span class="ql">A</span> Use the emergency fund for the gadget</button></li><li><button type="button" class="qopt" data-i="1"><span class="ql">B</span> Cancel insurance to free cash</button></li><li><button type="button" class="qopt" data-i="2"><span class="ql">C</span> Keep building the fund toward 3 months before the gadget</button></li><li><button type="button" class="qopt" data-i="3"><span class="ql">D</span> Borrow for the gadget and stop saving</button></li></ul><div class="qx" hidden><b class="qv"></b> The emergency fund is not for planned purchases; the target is three to six months of essentials.</div></div><div class="qq" data-ans="1"><p class="qt"><b>2.</b> Priya has two debts: 4,000 at 18 percent and 300 at 9 percent. She wants to minimise total interest. Which method fits?</p><ul class="qo"><li><button type="button" class="qopt" data-i="0"><span class="ql">A</span> Snowball</button></li><li><button type="button" class="qopt" data-i="1"><span class="ql">B</span> Avalanche</button></li><li><button type="button" class="qopt" data-i="2"><span class="ql">C</span> Pay both equally</button></li><li><button type="button" class="qopt" data-i="3"><span class="ql">D</span> Ignore interest</button></li></ul><div class="qx" hidden><b class="qv"></b> Avalanche pays the highest rate first and saves the most interest; snowball is about quick wins.</div></div><div class="qq" data-ans="3"><p class="qt"><b>3.</b> A 400 phone-case warranty is offered. Which statement is BEST?</p><ul class="qo"><li><button type="button" class="qopt" data-i="0"><span class="ql">A</span> Insure everything small</button></li><li><button type="button" class="qopt" data-i="1"><span class="ql">B</span> Always buy because insurers are cheap</button></li><li><button type="button" class="qopt" data-i="2"><span class="ql">C</span> Buy and cancel health cover</button></li><li><button type="button" class="qopt" data-i="3"><span class="ql">D</span> Skip it: an inconvenience, not a disaster</button></li></ul><div class="qx" hidden><b class="qv"></b> Insure the risks that would be a disaster; skip cover for inconveniences.</div></div></div><details><summary>What does a deductible do?</summary><p>It is the amount you pay first before the insurer pays.</p></details><details><summary>Why does compound interest grow faster?</summary><p>Unpaid interest is added to the balance, so the next charge is on a larger amount.</p></details></section><footer>Source: Demo author, <i>A Short Guide to Home Budgeting</i>, Chapter 2. Diagrams, checklists and self-checks are a study aid written for this page; items marked 'Beyond the book' are added and need verification.<div class="pager"><a href="index.html">Index</a><a href="ch1.html">&larr; Ch 1</a></div></footer></div></div><script>(function () {
+  var RULES = "You are an expert tutor inside a study atlas of 'A Short Guide to Home Budgeting (demo)'. The reader is a beginner who wants to understand budgeting basics in plain English. They clicked one part of the page and asked about it.\n\nWrite a genuinely clarifying explanation, not a restatement of the clicked text:\n1. Start with the direct answer in one plain sentence.\n2. Explain HOW or WHY it works: the mechanism, step by step, naming the actors and what each does. Define every technical term the first time in a few words. Use small numbers.\n3. Give one concrete, specific example with real-looking details, and say what makes it that kind of case and not a neighbouring one.\n4. If useful, add a one-line everyday example.\nLength: usually 110 to 170 words. Short paragraphs, plain text, no headings. For a follow-up, answer exactly that and build on earlier turns. Use the context given; say briefly if something is uncertain or goes beyond the source. The closing panels titled none are the atlas author's additions, not the source text.";
+  var sample = null, on = true, panel, logEl, input, quoteEl, turns = [], ctxText = '', ctl = null, busy = false, deeper = false, hovEl = null, raf = 0;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  try { if (localStorage.getItem('askon') === '0') on = false; } catch (e) {}
+
+  function clip(s, n) { s = (s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n) + '...' : s; }
+
+  function pickSvg(svg, e) {
+    var pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    var ctm = svg.getScreenCTM(); if (!ctm) return null;
+    var p = pt.matrixTransform(ctm.inverse()), vb = svg.viewBox.baseVal, total = vb.width * vb.height, best = null, ba = 1e12;
+    svg.querySelectorAll('rect').forEach(function (r) {
+      var x = +r.getAttribute('x'), y = +r.getAttribute('y'), w = +r.getAttribute('width'), h = +r.getAttribute('height');
+      if (p.x >= x && p.x <= x + w && p.y >= y && p.y <= y + h && w * h < total * 0.5 && w * h < ba) { best = r; ba = w * h; }
+    });
+    var fig = svg.getAttribute('aria-label') || '', cap = svg.closest('figure'); cap = cap && $('figcaption', cap) ? $('figcaption', cap).textContent : '';
+    if (best) {
+      var x0 = +best.getAttribute('x'), y0 = +best.getAttribute('y'), w0 = +best.getAttribute('width'), h0 = +best.getAttribute('height'), parts = [];
+      svg.querySelectorAll('text').forEach(function (t) {
+        var b = t.getBBox(), cx = b.x + b.width / 2, cy = b.y + b.height / 2;
+        if (cx >= x0 && cx <= x0 + w0 && cy >= y0 && cy <= y0 + h0) parts.push(t.textContent);
+      });
+      return { el: best, text: parts.join(' / '), kind: 'diagram box', fig: fig, cap: cap };
+    }
+    if (e.target.tagName === 'text') return { el: e.target, text: e.target.textContent, kind: 'diagram label', fig: fig, cap: cap };
+    return null;
+  }
+
+  function pick(e) {
+    var t = e.target;
+    if (!t || !t.closest || t.closest('#askpanel,#asktoggle,a,button,input,textarea,summary,nav')) return null;
+    if (!t.closest('.view')) return null;
+    var svg = t.closest('svg');
+    if (svg) return pickSvg(svg, e);
+    var el = t.closest('p,li,td,th,figcaption,h1,h2,h3,.lead,.note,.claim');
+    if (!el) return null;
+    var blk = el.closest('tr') ? el.closest('tr') : (el.closest('.card,.lens,details') || el.parentElement), extra = '';
+    if (el.closest('tr')) { var tb = el.closest('table'), hr = tb && $('thead tr', tb); extra = hr ? 'Table columns: ' + clip(hr.innerText, 200) + '. Row: ' : ''; }
+    return { el: el, text: clip(el.innerText, 600), kind: 'text', around: extra + clip(blk.innerText, 1200) };
+  }
+
+  function ctxOf(info, selText) {
+    var view = info.el.closest('.view'), h1 = view && $('h1', view), sec = info.el.closest('section'), h2 = sec && $('h2', sec);
+    var cl = sec && $('.claim', sec); var s = (cl ? 'Section summary: ' + clip(cl.textContent, 500) + '\n' : '') + 'Chapter page: ' + (h1 ? h1.textContent : '') + '\nSection: ' + (h2 ? h2.textContent : '(top of page)') + '\nClicked part (' + info.kind + '): ' + (selText || info.text);
+    if (selText) s += '\nWhole element it sits in: ' + clip(info.text, 500);
+    if (info.around) s += '\nSurrounding text: ' + info.around;
+    if (info.fig) s += '\nDiagram description: ' + info.fig;
+    if (info.cap) s += '\nDiagram caption: ' + clip(info.cap, 500);
+    return s;
+  }
+
+  function setHov(el) {
+    if (hovEl === el) return;
+    if (hovEl) hovEl.classList.remove('ask-hov');
+    hovEl = el; if (el) el.classList.add('ask-hov');
+  }
+
+  function show(el, text) {
+    // 'Textbook p.N' in an answer becomes a link to that page when the atlas has a local textbook copy
+    el.textContent = '';
+    var has = !!document.querySelector('a[href^="textbook.pdf"]'), re = /Textbook p\.(\d+)/g, last = 0, m;
+    if (!has) { el.textContent = text; return; }
+    while ((m = re.exec(text))) {
+      el.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var a = document.createElement('a'); a.href = 'textbook.pdf#page=' + m[1]; a.target = '_blank'; a.rel = 'noopener'; a.textContent = m[0]; el.appendChild(a); last = m.index + m[0].length;
+    }
+    el.appendChild(document.createTextNode(text.slice(last)));
+  }
+  function msg(cls, text) { var d = document.createElement('div'); d.className = 'am ' + cls; d.textContent = text; logEl.appendChild(d); logEl.scrollTop = logEl.scrollHeight; return d; }
+
+  function chips(show) {
+    var c = $('.achips', panel); c.innerHTML = '';
+    if (!show) return;
+    var list = busy ? [] : (turns.length ? ['Go deeper', 'Another example', 'Simpler'] : ['Explain simply', 'Walk me through step by step', 'Give a real-world example', 'Why does it matter?', 'How could this be tested?']);
+    list.forEach(function (q) { var b = document.createElement('button'); b.type = 'button'; b.textContent = q; b.onclick = function () { ask(/^Go deeper/.test(q) ? 'Go deeper: explain the underlying mechanism more fully, with a second, different example.' : q, /^Go deeper/.test(q)); }; c.appendChild(b); });
+  }
+
+  function open(info, selText) {
+    ctxText = ctxOf(info, selText); turns = []; logEl.innerHTML = '';
+    quoteEl.textContent = clip(selText || info.text, 140); panel.hidden = false; chips(true);
+    input.value = ''; input.focus({ preventScroll: true });
+  }
+  function close() { if (ctl) ctl.abort(); panel.hidden = true; busy = false; }
+
+  var ERR = { not_granted: 'Asking is switched off for this page. Allow Claude for this artifact to use it.', rate_limited: 'Too many questions just now. Wait a moment and try again.', session_expired: 'Sign in again to keep asking.', upstream_error: 'Something interrupted the answer. Try again.', sampling_disabled: 'Claude is not available on this account.' };
+
+  function ask(q, goDeep) {
+    q = (q || '').trim(); if (!q || busy || !sample) return;
+    msg('q', q); turns.push({ role: 'user', content: q });
+    var out = msg('a', 'Thinking...'), stop = $('.astop', panel);
+    ctl = new AbortController(); busy = true; chips(false); input.value = ''; stop.hidden = false;
+    sample([{ role: 'user', content: RULES + '\n\nCONTEXT\n' + ctxText }].concat(turns.slice(-8)), {
+      cache: turns.length === 1 ? { gcTime: 3600000 } : false, signal: ctl.signal, modelTier: goDeep ? 'complex' : 'default',
+      onText: function (u) { show(out, u.text); logEl.scrollTop = logEl.scrollHeight; }
+    }).then(function (r) { show(out, r.text); turns.push({ role: 'assistant', content: r.text }); })
+      .catch(function (e) {
+        if (e && e.code === 'cancelled') { out.textContent = e.text || 'Stopped.'; if (e.text) turns.push({ role: 'assistant', content: e.text }); else turns.pop(); }
+        else { out.textContent = (e && e.text ? e.text + '\n\n' : '') + (ERR[e && e.code] || ERR.upstream_error) + (e && e.message && e.code === 'upstream_error' ? ' (' + e.message + ')' : ''); out.classList.add('err'); if (e && e.text) turns.push({ role: 'assistant', content: e.text }); else turns.pop(); }
+      }).finally(function () { busy = false; ctl = null; stop.hidden = true; chips(true); });
+  }
+
+  function build() {
+    var tg = document.createElement('button'); tg.id = 'asktoggle'; tg.type = 'button';
+    function lab() { tg.textContent = on ? 'Click to ask: on' : 'Click to ask: off'; tg.setAttribute('aria-pressed', on); }
+    tg.onclick = function () { on = !on; try { localStorage.setItem('askon', on ? '1' : '0'); } catch (e) {} lab(); if (!on) { setHov(null); close(); } };
+    lab(); document.body.appendChild(tg);
+    panel = document.createElement('div'); panel.id = 'askpanel'; panel.hidden = true; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Ask about this part');
+    panel.innerHTML = '<div class="ah"><span class="aq"></span><button type="button" class="ax" aria-label="Close">×</button></div><div class="alog" aria-live="polite"></div><div class="achips"></div><form class="af"><input id="askinput" placeholder="What is unclear? Type and press Enter" autocomplete="off"><button type="submit">Ask</button><button type="button" class="astop" hidden>Stop</button></form>';
+    document.body.appendChild(panel);
+    logEl = $('.alog', panel); input = $('#askinput', panel); quoteEl = $('.aq', panel);
+    $('.ax', panel).onclick = close;
+    $('.astop', panel).onclick = function () { if (ctl) ctl.abort(); };
+    $('.af', panel).onsubmit = function (e) { e.preventDefault(); ask(input.value); };
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) close(); });
+    document.addEventListener('mousemove', function (e) {
+      if (!on || raf) return; raf = requestAnimationFrame(function () { raf = 0; var i = pick(e); setHov(i ? i.el : null); });
+    });
+    document.addEventListener('click', function (e) {
+      if (!on) return;
+      var i = pick(e); if (!i) return;
+      var sel = window.getSelection ? window.getSelection().toString().trim() : '';
+      open(i, sel.length >= 3 && sel.length < 600 ? sel : '');
+    });
+    var tip = document.getElementById('asktip'); if (tip) tip.hidden = false;
+  }
+
+  var views = [].slice.call(document.querySelectorAll('.view'));
+  function route() {
+    var h = decodeURIComponent((location.hash || '').slice(1)) || 'index', vid = h, anchor = null, m = h.match(/^(ch\d+|appendix)-(s\d+)$/);
+    if (m) { vid = m[1]; anchor = h; }
+    var v = document.getElementById('v-' + vid) || document.getElementById('v-index');
+    views.forEach(function (x) { x.hidden = x !== v; });
+    var el = anchor && document.getElementById(anchor);
+    if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
+  }
+  if (location.hash) { var e0 = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (e0) e0.scrollIntoView(); }
+
+  if (window.claude && claude.use) {
+    claude.use('sample').then(function (s) { if (s) { sample = s; build(); } }).catch(function () {});
+  }
+})();
+</script><script>/* Scored multiple-choice quizzes. Markup comes from atlas_kit.quiz(). Works without any ask engine.
+   Progress is kept per page in localStorage (wrapped in try/catch; the quiz works without it). */
+(function () {
+  function store(key, val) { try { if (val === undefined) { var s = localStorage.getItem(key); return s ? JSON.parse(s) : {}; } localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} return {}; }
+  [].slice.call(document.querySelectorAll('.quiz')).forEach(function (qz) {
+    var key = 'quiz:' + location.pathname + ':' + qz.getAttribute('data-qid');
+    var qs = [].slice.call(qz.querySelectorAll('.qq')), saved = store(key) || {};
+    var score = qz.querySelector('.qscore'), retry = qz.querySelector('.qretry');
+    function paint(q, i) {
+      var ans = +q.getAttribute('data-ans'), opts = [].slice.call(q.querySelectorAll('.qopt')), box = q.querySelector('.qx');
+      q.setAttribute('data-chosen', i);
+      opts.forEach(function (o, k) { o.disabled = true; o.classList.toggle('ok', k === ans); o.classList.toggle('bad', k === i && i !== ans); });
+      box.hidden = false; box.className = 'qx ' + (i === ans ? 'good' : 'miss');
+      box.querySelector('.qv').textContent = i === ans ? 'Correct.' : 'Not quite. The best answer is ' + String.fromCharCode(65 + ans) + '.';
+    }
+    function clear(q) {
+      q.removeAttribute('data-chosen');
+      [].slice.call(q.querySelectorAll('.qopt')).forEach(function (o) { o.disabled = false; o.classList.remove('ok', 'bad'); });
+      q.querySelector('.qx').hidden = true;
+    }
+    function tally() {
+      var done = 0, right = 0;
+      qs.forEach(function (q) { var c = q.getAttribute('data-chosen'); if (c !== null) { done++; if (+c === +q.getAttribute('data-ans')) right++; } });
+      score.textContent = 'Score ' + right + ' / ' + qs.length + '  (answered ' + done + ')';
+      retry.hidden = !(done - right > 0);
+      var s = {}; qs.forEach(function (q, n) { var c = q.getAttribute('data-chosen'); if (c !== null) s[n] = +c; }); store(key, s);
+    }
+    qs.forEach(function (q, n) { if (saved[n] !== undefined) paint(q, +saved[n]); });
+    qz.addEventListener('click', function (e) {
+      var b = e.target.closest('.qopt'); if (b && !b.disabled) { paint(b.closest('.qq'), +b.getAttribute('data-i')); tally(); return; }
+      if (e.target.closest('.qreset')) { qs.forEach(clear); tally(); }
+      if (e.target.closest('.qretry')) { qs.forEach(function (q) { var c = q.getAttribute('data-chosen'); if (c !== null && +c !== +q.getAttribute('data-ans')) clear(q); }); tally(); }
+    });
+    tally();
+  });
+})();
+
+/* Step-through for flow diagrams (figures with data-step groups). Default view shows everything; "Step through" dims later steps. */
+(function () {
+  [].slice.call(document.querySelectorAll('figure.stepfig')).forEach(function (fig) {
+    var bar = fig.querySelector('.stepbar'), n = +bar.getAttribute('data-n'), caps = []; try { caps = JSON.parse(bar.getAttribute('data-caps') || '[]'); } catch (e) {}
+    var go = bar.querySelector('.sgo'), prev = bar.querySelector('.sprev'), next = bar.querySelector('.snext'), all = bar.querySelector('.sall'), cap = bar.querySelector('.scap'), cur = 0;
+    function render() {
+      var on = cur > 0; fig.classList.toggle('stepping', on);
+      [].slice.call(fig.querySelectorAll('[data-step]')).forEach(function (g) { var k = +g.getAttribute('data-step'); g.classList.toggle('dim', on && k > cur); g.classList.toggle('cur', on && k === cur); });
+      go.hidden = on; prev.hidden = next.hidden = all.hidden = !on; prev.disabled = cur <= 1; next.disabled = cur >= n;
+      cap.textContent = on ? ('Step ' + cur + ' of ' + n + (caps[cur - 1] ? ': ' + caps[cur - 1] : '')) : '';
+    }
+    go.onclick = function () { cur = 1; render(); }; prev.onclick = function () { if (cur > 1) { cur--; render(); } };
+    next.onclick = function () { if (cur < n) { cur++; render(); } }; all.onclick = function () { cur = 0; render(); }; render();
+  });
+})();
+
+</script></body></html>

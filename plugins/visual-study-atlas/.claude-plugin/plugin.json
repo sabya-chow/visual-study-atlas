@@ -1,0 +1,9 @@
+{
+  "name": "visual-study-atlas",
+  "description": "Turn a book, paper, transcript or repo into a diagram-first study atlas: pilot first, then a full offline build with scored quizzes, a page-cited ask box, flashcards and a mind map.",
+  "version": "1.0.0",
+  "author": { "name": "sabya-chow" },
+  "repository": "https://github.com/sabya-chow/visual-study-atlas",
+  "license": "MIT",
+  "keywords": ["study", "learning", "diagrams", "quiz", "flashcards", "anki", "education"]
+}

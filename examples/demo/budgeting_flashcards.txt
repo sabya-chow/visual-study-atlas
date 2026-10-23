@@ -1,0 +1,27 @@
+#separator:tab
+#html:true
+#tags column:3
+Fixed costs	Same every month: rent, loan payments, insurance premiums.	ch1_ch1-s1
+Variable costs	Change with your choices: groceries, fuel, entertainment.	ch1_ch1-s1
+Irregular costs	Arrive a few times a year: repairs, annual subscriptions, gifts. Divide the yearly total by twelve and set it aside monthly.	ch1_ch1-s1
+Surplus	What is left after all three; negative means the plan spends more than it earns.	ch1_ch1-s1
+Needs	What you must pay to live and work.	ch1_ch1-s2
+Wants	What you choose.	ch1_ch1-s2
+Savings	Emergency fund, retirement, goals, extra debt payments.	ch1_ch1-s2
+What is the surplus?	Income left after fixed, variable and irregular costs; negative means the plan overspends.	ch1_ch1-s4_selfcheck
+What is zero-based budgeting?	Every unit of income gets a job so income minus planned spending equals zero; savings count as a job.	ch1_ch1-s4_selfcheck
+Maya earns 3,000 after tax. Rent and loan payments are 1,400 and groceries are about 500. A 600 car service arrives once a year. What should she do first about the car bill?<br><br>A Ignore it until it arrives<br>B Set aside 50 a month (600 divided by 12)<br>C Cut groceries to zero<br>D Raise the savings bucket to 30 percent	<b>B Set aside 50 a month (600 divided by 12)</b><br>Irregular costs are divided by twelve and set aside monthly so they never become a surprise.	ch1_ch1-s4_quiz
+A household in a high-rent city spends 62 percent of income on needs. Which statement about the 50/30/20 split is the BEST?<br><br>A The household is breaking a rule and must move<br>B The split is a rule of thumb; adjust the other buckets to fit<br>C Savings should be set to zero permanently<br>D Wants must still be 30 percent	<b>B The split is a rule of thumb; adjust the other buckets to fit</b><br>It is a starting draft, not a law; needs can exceed half and the other buckets shrink.	ch1_ch1-s4_quiz
+Two months in a row, the dining-out category ended 80 over plan. What does the loop suggest?<br><br>A Try harder next month<br>B Stop recording purchases<br>C Adjust the category to a realistic number<br>D Delete the category	<b>C Adjust the category to a realistic number</b><br>A category wrong twice needs a new number, not more willpower.	ch1_ch1-s4_quiz
+Emergency fund	Cash reserve for surprises such as job loss or a medical bill; not for planned purchases.	ch2_ch2-s1
+Target	Three to six months of essential costs; start with one month.	ch2_ch2-s1
+Compound interest	Unpaid interest is added to the balance, so the next charge is on a larger amount.	ch2_ch2-s2
+Avalanche	Pay the highest interest rate first; saves the most interest.	ch2_ch2-s2
+Snowball	Pay the smallest balance first; quick wins.	ch2_ch2-s2
+Premium	The regular payment to the insurer.	ch2_ch2-s3
+Deductible	The amount you pay first before the insurer pays.	ch2_ch2-s3
+What does a deductible do?	It is the amount you pay first before the insurer pays.	ch2_ch2-s4_selfcheck
+Why does compound interest grow faster?	Unpaid interest is added to the balance, so the next charge is on a larger amount.	ch2_ch2-s4_selfcheck
+Dev spends 1,800 a month on essentials and has 2,000 saved. He can afford a deposit for a new gadget (500). What is the BEST move?<br><br>A Use the emergency fund for the gadget<br>B Cancel insurance to free cash<br>C Keep building the fund toward 3 months before the gadget<br>D Borrow for the gadget and stop saving	<b>C Keep building the fund toward 3 months before the gadget</b><br>The emergency fund is not for planned purchases; the target is three to six months of essentials.	ch2_ch2-s4_quiz
+Priya has two debts: 4,000 at 18 percent and 300 at 9 percent. She wants to minimise total interest. Which method fits?<br><br>A Snowball<br>B Avalanche<br>C Pay both equally<br>D Ignore interest	<b>B Avalanche</b><br>Avalanche pays the highest rate first and saves the most interest; snowball is about quick wins.	ch2_ch2-s4_quiz
+A 400 phone-case warranty is offered. Which statement is BEST?<br><br>A Insure everything small<br>B Always buy because insurers are cheap<br>C Buy and cancel health cover<br>D Skip it: an inconvenience, not a disaster	<b>D Skip it: an inconvenience, not a disaster</b><br>Insure the risks that would be a disaster; skip cover for inconveniences.	ch2_ch2-s4_quiz

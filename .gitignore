@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.DS_Store
+index_cache.json
+_build/
+.venv/
+*.xlsx
+# never commit your own sources or built atlases
+my_atlas/

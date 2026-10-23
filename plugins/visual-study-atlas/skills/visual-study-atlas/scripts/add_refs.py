@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Add "Textbook" page links (+ sub-topic chips) and "Video" links to every section of a built local atlas.
-Run AFTER make_local.py:   add_refs.py <app_folder> <refs.json> [--no-verify]
+Run AFTER make_local.py:   add_refs.py <app_folder> <refs.json> [--no-verify] [--pages-only]
+(--pages-only leaves the pages untouched and only writes book/textbook.pages.json; re-running without it replaces earlier link blocks.)
 Needs pypdf (pip install pypdf) and internet for video verification.
 
 refs.json
@@ -63,14 +64,14 @@ def main():
            '.refs a{color:var(--ctl);text-decoration:none;border-bottom:1px solid var(--line)}.refs a:hover,.refs a:focus-visible{border-bottom-color:var(--ctl);outline:none}.refs .rs{color:var(--muted)}'
            '.refs .rc{display:flex;flex-wrap:wrap;gap:4px 10px}.refs.vid a{border-bottom:0;padding:2px 8px;border:1px solid var(--line);border-radius:999px}')
     n = [0]
-    for f in sorted(os.listdir(app)):
+    for f in ([] if '--pages-only' in sys.argv else sorted(os.listdir(app))):   # --pages-only: only write the page-labelled text for cited answers
         if not f.endswith('.html'): continue
         t = open(os.path.join(app, f), encoding='utf-8').read(); t0 = t
         def sub(m):
             k = m.group(2)
-            if k in refs and 'class="refs"' not in m.group(0): n[0] += 1; return m.group(1) + refs[k]
+            if k in refs: n[0] += 1; return m.group(1) + refs[k]
             return m.group(0)
-        t = re.sub(r'(<section id="(ch\d+-s\d+)"><div class="sec-n">.*?</h2><p class="claim">.*?</p>)', sub, t, flags=re.S)
+        t = re.sub(r'(<section id="(ch\d+-s\d+)"><div class="sec-n">.*?</h2><p class="claim">.*?</p>)((?:<div class="refs[^"]*">.*?</div>)*)', sub, t, flags=re.S)   # replaces earlier link blocks: safe to rerun
         if t != t0 and '.refs{' not in t: t = t.replace('</style>', css + '</style>', 1)
         if t != t0: open(os.path.join(app, f), 'w', encoding='utf-8').write(t)
     shutil.copy(spec['pdf'], os.path.join(app, 'textbook.pdf'))

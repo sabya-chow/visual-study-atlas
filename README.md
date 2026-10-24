@@ -6,7 +6,11 @@ A [Claude Code](https://claude.com/claude-code) skill that turns learning materi
 
 [![Watch the full walkthrough on YouTube](https://i.ytimg.com/vi/OQDGLh198Qs/maxresdefault.jpg)](https://youtu.be/OQDGLh198Qs)
 
-**Short demo (about 90 seconds, narrated with a text-to-speech voice):** [watch demo.mp4](https://github.com/sabya-chow/visual-study-atlas/blob/main/examples/demo/demo.mp4). It is made from screen captures of the app built out of an original three-page sample text in [examples/demo](examples/demo).
+**Short demo (about 90 seconds, narrated with a text-to-speech voice)**, made from screen captures of the app built out of an original three-page sample text in [examples/demo](examples/demo):
+
+https://github.com/user-attachments/assets/08a3a6e9-fb74-466c-8c2a-b433d9b4c7c7
+
+(File copy: [examples/demo/demo.mp4](https://github.com/sabya-chow/visual-study-atlas/blob/main/examples/demo/demo.mp4).)
 
 ## What you get
 

@@ -15,7 +15,12 @@ def main():
         ct = txt(re.search(r'<h1>(.*?)</h1>', h, re.S).group(1))
         secs = []
         for sm in re.finditer(r'<section id="([^"]+)"><div class="sec-n">(.*?)</div><h2>(.*?)</h2>(.*?)</section>', h, re.S):
-            items = [txt(i) for i in re.findall(r'<li>(.*?)</li>', ''.join(re.findall(r'<ul class="covl">(.*?)</ul>', sm.group(4), re.S)), re.S)]
+            body_ = sm.group(4)
+            items = [txt(i) for i in re.findall(r'<li>(.*?)</li>', ''.join(re.findall(r'<ul class="covl">(.*?)</ul>', body_, re.S)), re.S)]
+            if not items:   # atlases without coverage checklists: use the lens-panel bullets, else the self-check questions
+                items = [txt(i) for i in re.findall(r'<li>(.*?)</li>', ''.join(re.findall(r'<div class="lens [^"]*">.*?</div>', body_, re.S)), re.S)]
+            if not items:
+                items = [txt(i) for i in re.findall(r'<summary>(.*?)</summary>', body_, re.S)]
             secs.append({'id': sm.group(1), 'title': txt(sm.group(3)), 'items': items})
         chapters.append({'file': f, 'title': ct, 'secs': secs})
     style = re.search(r'<style>.*?</style>', open(os.path.join(app, 'index.html'), encoding='utf-8').read(), re.S).group(0)

@@ -42,11 +42,11 @@ Skip the pilot only if the user explicitly says so ("no questions, just build it
 
 ## Upgrading an atlas you already built (no chapter rebuild)
 1. Copy the current `local_app/server.py` into the app (page citations, inline PDF, static pages).
-2. `add_refs.py <app> refs.json` (sections that already have links are skipped; it adds the page-labelled text `book/textbook.pages.json` so answers can cite pages).
+2. `add_refs.py <app> refs.json` (re-running replaces earlier link blocks; `--pages-only` just writes the page-labelled text `book/textbook.pages.json`, so answers can cite pages), then `patch_ask_citations.py <app>` so the old embedded ask script turns `Textbook p.N` into links. Make sure every page links the PDF as `textbook.pdf` (rename old links) and delete duplicate PDF copies.
 3. Quizzes: write the questions in the project's quiz style, render with `quiz()` and insert the HTML into each chapter's self-check section; add the quiz and step CSS (`atlas_kit.EXTRA`) and append `quiz.js` and `steps.js` before `</body>` of each chapter page.
 4. Steps: `add_steps.py <chapter.html> steps.json` lists, per figure, the box titles in reading order.
 5. `make_mindmap.py <app>` and `export_anki.py <app> cards.txt`.
-6. Restart the server (kill any old copy on the port), then test a quiz, a step-through, a cited answer and every new link.
+6. Restart the server (kill any old copy on the port), then test a quiz, a step-through, a cited answer and every new link. After a font change or text edit rerun `overflow_check.js` (system fonts are wider than the old web font and can spill labels).
 
 ## What to emphasise (suggestive; you decide what works)
 - **Maths-oriented material** (Bayesian, statistics, ML theory, quantitative finance): centre every section on the **core equation**: what each symbol means, what each term does, where it comes from, a small worked numeric example, an intuition picture, assumptions and when it breaks. Fewer boxes, more equation maps and plots.
@@ -72,6 +72,6 @@ The details are in `references/content-modes.md`.
 - `scripts/extract_text.py`, `scripts/code_pipeline.py` input handling.
 - `scripts/atlas_kit.py` page and figure helpers (`S`, `quad`, `table`, `cards`, `lens`, `sec`, `page`, plus `check`, `defs_table`, `beyond`, `qa`; set `LENS_TITLES`, `BOOK`, `CREDIT`, `ATLAS_NAME`, `LAST_CHAPTER`).
 - `scripts/assemble.py <folder> [requirements.json]` single-page atlas with router and the ask box (tutor prompt filled from the spec); `scripts/ask.js` the click-to-ask layer.
-- `scripts/make_local.py` offline app folder (calls `scripts/split_pages.py`: single page to index.html + ch*.html); `scripts/add_refs.py` source page links, verified video links and page-labelled text for cited answers; `scripts/export_anki.py` flashcards for Anki; `scripts/make_mindmap.py` mind map page; `scripts/add_steps.py` retrofit step-through onto built figures; `scripts/quiz.js`, `scripts/steps.js` quiz and step-through behaviour (added by `assemble.py`); `scripts/overflow_check.js` svg label overflow check; `local_app/` server (Ollama + retrieval), launcher, shim, config.
+- `scripts/make_local.py` offline app folder (calls `scripts/split_pages.py`: single page to index.html + ch*.html); `scripts/add_refs.py` source page links, verified video links and page-labelled text for cited answers; `scripts/export_anki.py` flashcards for Anki; `scripts/make_mindmap.py` mind map page; `scripts/add_steps.py` retrofit step-through onto built figures; `scripts/patch_ask_citations.py` make page citations clickable in already-built pages; `scripts/quiz.js`, `scripts/steps.js` quiz and step-through behaviour (added by `assemble.py`); `scripts/overflow_check.js` svg label overflow check; `local_app/` server (Ollama + retrieval), launcher, shim, config.
 - `templates/index_template.html` minimal index to edit; a complete worked example (original source, chapters, quizzes, steps, build script) lives in the repository under `examples/demo/`.
 - `references/questionnaire.md`, `references/content-modes.md`, `references/build-recipe.md`, `references/quiz-styles.md`.

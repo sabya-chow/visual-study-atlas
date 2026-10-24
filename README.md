@@ -2,7 +2,7 @@
 
 A [Claude Code](https://claude.com/claude-code) skill that turns learning material (a book, paper, transcript, notes, a code repo) into a **diagram-first, offline study atlas**: one page per chapter, hand-built SVG diagrams, definition tables, a coverage checklist per section, scored quizzes, a click-anywhere ask box that runs on a local model, and links back to the page of your own copy of the source.
 
-**Demo (about a minute):** [examples/demo/demo.mp4](examples/demo/demo.mp4). It is recorded from the app built out of an original three-page sample text in [examples/demo](examples/demo).
+**Demo (about 90 seconds, narrated with a text-to-speech voice):** [examples/demo/demo.mp4](examples/demo/demo.mp4). It is made from screen captures of the app built out of an original three-page sample text in [examples/demo](examples/demo).
 
 ## What you get
 

@@ -74,7 +74,7 @@ def main():
         t = re.sub(r'(<section id="(ch\d+-s\d+)"><div class="sec-n">.*?</h2><p class="claim">.*?</p>)((?:<div class="refs[^"]*">.*?</div>)*)', sub, t, flags=re.S)   # replaces earlier link blocks: safe to rerun
         if t != t0 and '.refs{' not in t: t = t.replace('</style>', css + '</style>', 1)
         if t != t0: open(os.path.join(app, f), 'w', encoding='utf-8').write(t)
-    shutil.copy(spec['pdf'], os.path.join(app, 'textbook.pdf'))
+    if os.path.abspath(spec['pdf']) != os.path.abspath(os.path.join(app, 'textbook.pdf')): shutil.copy(spec['pdf'], os.path.join(app, 'textbook.pdf'))
     # page-labelled text for retrieval, so ask-box answers can cite 'Textbook p.N' (only the built chapter ranges)
     first = min(r[0] for r in spec['ranges'].values()); lastp = max(r[1] for r in spec['ranges'].values())
     os.makedirs(os.path.join(app, 'book'), exist_ok=True)

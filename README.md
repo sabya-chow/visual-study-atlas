@@ -2,7 +2,9 @@
 
 A [Claude Code](https://claude.com/claude-code) skill that turns learning material (a book, paper, transcript, notes, a code repo) into a **diagram-first, offline study atlas**: one page per chapter, hand-built SVG diagrams, definition tables, a coverage checklist per section, scored quizzes, a click-anywhere ask box that runs on a local model, and links back to the page of your own copy of the source.
 
-**Full walkthrough on YouTube (8.5 min: why it exists, Ollama and requirements, install from scratch, first run, every feature):** https://youtu.be/OQDGLh198Qs
+**Full walkthrough (8.5 min: why it exists, Ollama and requirements, install from scratch, first run, every feature):** click the picture to watch on YouTube.
+
+[![Watch the full walkthrough on YouTube](https://i.ytimg.com/vi/OQDGLh198Qs/maxresdefault.jpg)](https://youtu.be/OQDGLh198Qs)
 
 **Short demo (about 90 seconds, narrated with a text-to-speech voice):** [watch demo.mp4](https://github.com/sabya-chow/visual-study-atlas/blob/main/examples/demo/demo.mp4). It is made from screen captures of the app built out of an original three-page sample text in [examples/demo](examples/demo).
 

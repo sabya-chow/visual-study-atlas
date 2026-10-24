@@ -3,3 +3,4 @@ openpyxl>=3.1      # questionnaire workbook
 pypdf>=4.0         # page links and page-labelled text from your PDF
 # Optional
 reportlab>=4.0     # only to regenerate the demo source PDF (examples/demo/make_source.py)
+imageio-ffmpeg>=0.4   # demo video narration only
